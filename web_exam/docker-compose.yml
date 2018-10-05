@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  db_exam:
+    container_name: postgres_exam
+    image: postgres
+    restart: always
+
+  web_exam:
+    container_name: web_exam
+    build: ./exam
+    command: sh /code/run.sh
+    volumes:
+      - ./exam:/code
+      - /var/www/public/static/:/var/www/public/static/	
+      - .exam/media/:/code/media/
+
+    depends_on:
+      - db_exam
